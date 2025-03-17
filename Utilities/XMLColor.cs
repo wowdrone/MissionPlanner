@@ -13,7 +13,7 @@ namespace MissionPlanner.Utilities
 {
     public class XmlColor
     {
-        private Color color_ = Color.Black;
+        private Color color_ = Color.blue;
 
         public XmlColor() { }
         public XmlColor(Color c) { color_ = c; }
