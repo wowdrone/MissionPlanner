@@ -39,11 +39,11 @@ namespace MissionPlanner.GCSViews
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBoxheli = new MissionPlanner.Controls.PictureBoxMouseOver();
             this.pictureBoxquad = new MissionPlanner.Controls.PictureBoxMouseOver();
-            this.pictureBoxrover = new MissionPlanner.Controls.PictureBoxMouseOver();
             this.pictureBoxplane = new MissionPlanner.Controls.PictureBoxMouseOver();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cmb_version = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.NUM_heading = new System.Windows.Forms.NumericUpDown();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -58,11 +58,10 @@ namespace MissionPlanner.GCSViews
             this.cmb_model = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.num_simspeed = new System.Windows.Forms.NumericUpDown();
-            this.cmb_version = new System.Windows.Forms.ComboBox();
+            this.pictureBoxrover = new MissionPlanner.Controls.PictureBoxMouseOver();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxheli)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxquad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxrover)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxplane)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -70,6 +69,7 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.NUM_heading)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_simspeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxrover)).BeginInit();
             this.SuspendLayout();
             // 
             // myGMAP1
@@ -156,17 +156,6 @@ namespace MissionPlanner.GCSViews
             this.pictureBoxquad.Tag = "copter";
             this.pictureBoxquad.Click += new System.EventHandler(this.pictureBoxquad_Click);
             // 
-            // pictureBoxrover
-            // 
-            resources.ApplyResources(this.pictureBoxrover, "pictureBoxrover");
-            this.pictureBoxrover.ImageNormal = ((System.Drawing.Image)(resources.GetObject("pictureBoxrover.ImageNormal")));
-            this.pictureBoxrover.ImageOver = ((System.Drawing.Image)(resources.GetObject("pictureBoxrover.ImageOver")));
-            this.pictureBoxrover.Name = "pictureBoxrover";
-            this.pictureBoxrover.selected = false;
-            this.pictureBoxrover.TabStop = false;
-            this.pictureBoxrover.Tag = "rover";
-            this.pictureBoxrover.Click += new System.EventHandler(this.pictureBoxrover_Click);
-            // 
             // pictureBoxplane
             // 
             resources.ApplyResources(this.pictureBoxplane, "pictureBoxplane");
@@ -200,6 +189,12 @@ namespace MissionPlanner.GCSViews
             this.groupBox3.Controls.Add(this.NUM_heading);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
+            // 
+            // cmb_version
+            // 
+            this.cmb_version.FormattingEnabled = true;
+            resources.ApplyResources(this.cmb_version, "cmb_version");
+            this.cmb_version.Name = "cmb_version";
             // 
             // label1
             // 
@@ -347,11 +342,16 @@ namespace MissionPlanner.GCSViews
             0,
             0});
             // 
-            // cmb_version
+            // pictureBoxrover
             // 
-            this.cmb_version.FormattingEnabled = true;
-            resources.ApplyResources(this.cmb_version, "cmb_version");
-            this.cmb_version.Name = "cmb_version";
+            resources.ApplyResources(this.pictureBoxrover, "pictureBoxrover");
+            this.pictureBoxrover.ImageNormal = ((System.Drawing.Image)(resources.GetObject("pictureBoxrover.ImageNormal")));
+            this.pictureBoxrover.ImageOver = ((System.Drawing.Image)(resources.GetObject("pictureBoxrover.ImageOver")));
+            this.pictureBoxrover.Name = "pictureBoxrover";
+            this.pictureBoxrover.selected = false;
+            this.pictureBoxrover.TabStop = false;
+            this.pictureBoxrover.Tag = "rover";
+            this.pictureBoxrover.Click += new System.EventHandler(this.pictureBoxrover_Click);
             // 
             // SITL
             // 
@@ -365,7 +365,6 @@ namespace MissionPlanner.GCSViews
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxheli)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxquad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxrover)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxplane)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -375,6 +374,7 @@ namespace MissionPlanner.GCSViews
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_simspeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxrover)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -389,7 +389,6 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.Label label3;
         private PictureBoxMouseOver pictureBoxheli;
         private PictureBoxMouseOver pictureBoxquad;
-        private PictureBoxMouseOver pictureBoxrover;
         private PictureBoxMouseOver pictureBoxplane;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -409,5 +408,6 @@ namespace MissionPlanner.GCSViews
         private MyButton but_swarmrover;
         private MyButton but_swarmplane;
         private System.Windows.Forms.ComboBox cmb_version;
+        private PictureBoxMouseOver pictureBoxrover;
     }
 }
