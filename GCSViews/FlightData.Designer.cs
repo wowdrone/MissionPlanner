@@ -2,7 +2,7 @@ using System.Windows.Forms;
 
 namespace MissionPlanner.GCSViews
 {
-    public partial class FlightData : System.Windows.Forms.UserControl//partial class FlightData
+    partial class FlightData
     {
         private System.ComponentModel.IContainer components = null;
 
