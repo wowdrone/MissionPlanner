@@ -273,6 +273,7 @@ namespace MissionPlanner.Controls.PreFlight
             var panelOneWidth = panel1.Width;
             //Group boxes variable width
             var gbsWidth = groupboxes[0].Width = (int)(panelOneWidth * 0.9);
+        
             //Desc label variable width
             var descLabelWidth = descLabels[0].Width = (int)(gbsWidth * 0.6204);
             //Second label variable width
