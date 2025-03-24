@@ -588,6 +588,7 @@ namespace MissionPlanner.GCSViews
 
         public void CheckBatteryShow()
         {
+            //계산된 배터리 셀 전압을 표시할지 확인한다
             //Check if we want to display calculated battery cell voltage
             hud1.displayCellVoltage = Settings.Instance.GetBoolean("HUD_showbatterycell", false);
             hud1.batterycellcount = Settings.Instance.GetInt32("HUD_batterycellcount", 0);
