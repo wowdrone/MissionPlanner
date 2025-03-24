@@ -4853,35 +4853,35 @@ namespace MissionPlanner.GCSViews
 
         private void setQuickViewRowsCols(string cols, string rows)
         {
+            // 레이아웃 동작 일시 중지
             tableLayoutPanelQuick.PerformLayout();
             tableLayoutPanelQuick.SuspendLayout();
+
+            // 열과 행 개수 설정 (최소 1 이상)
             tableLayoutPanelQuick.ColumnCount = Math.Max(1, int.Parse(cols));
             tableLayoutPanelQuick.RowCount = Math.Max(1, int.Parse(rows));
 
+            // 설정 저장
             Settings.Instance["quickViewRows"] = tableLayoutPanelQuick.RowCount.ToString();
             Settings.Instance["quickViewCols"] = tableLayoutPanelQuick.ColumnCount.ToString();
 
             int total = tableLayoutPanelQuick.ColumnCount * tableLayoutPanelQuick.RowCount;
 
-            // clean up extra
-            var ctls = tableLayoutPanelQuick.Controls.Select(a => (Control) a).ToList();
-            // remove those in row/cols outside our selection
+            // 기존 컨트롤 리스트 가져오기
+            var ctls = tableLayoutPanelQuick.Controls.Select(a => (Control)a).ToList();
+
+            // 선택된 행/열 범위를 벗어나는 컨트롤 제거
             ctls.Select(a =>
             {
                 try
                 {
                     if (a == null)
                         return default(TableLayoutPanelCellPosition);
-                    var pos = tableLayoutPanelQuick.GetPositionFromControl((Control) a);
-                    if (pos.Column >= tableLayoutPanelQuick.ColumnCount)
+                    var pos = tableLayoutPanelQuick.GetPositionFromControl((Control)a);
+                    if (pos.Column >= tableLayoutPanelQuick.ColumnCount || pos.Row >= tableLayoutPanelQuick.RowCount)
                     {
-                        tableLayoutPanelQuick.Controls.Remove((Control) a);
+                        tableLayoutPanelQuick.Controls.Remove((Control)a);
                     }
-                    else if (pos.Row >= tableLayoutPanelQuick.RowCount)
-                    {
-                        tableLayoutPanelQuick.Controls.Remove((Control) a);
-                    }
-
                     return pos;
                 }
                 catch (Exception ex)
@@ -4890,50 +4890,47 @@ namespace MissionPlanner.GCSViews
                     return default(TableLayoutPanelCellPosition);
                 }
             }).ToList();
-            //randomiser for colors
+
+            // 색상 랜덤 선택을 위한 변수
             Random random = new Random();
             var controlCount = tableLayoutPanelQuick.Controls;
-            ////if the amount on the quickView Tab decreases, clear the colors List
+
+            // 개수가 맞지 않거나 16개 단위일 때 색상 리스트 초기화
             if ((controlCount.Count <= total || controlCount.Count >= total) && listQuickView.Count() % 16 == 0)
             {
                 listQuickView.Clear();
             }
-            // add extra
+
+            // 필요한 만큼 QuickView 컨트롤 추가
             while (total > tableLayoutPanelQuick.Controls.Count)
             {
-                //Variable to Set the name of the quickView Control/s
-                var NameQuickView = "quickView" +  (controlCount.Count + 1);
+                // 컨트롤 이름 생성 (예: quickView1, quickView2, ...)
+                var NameQuickView = "quickView" + (controlCount.Count + 1);
 
-                //if the 9 colors are equal in each list, then reset the colors in listQV
+                // 색상 리스트가 꽉 찼을 경우 초기화
                 if ((listQuickView.ToList().OrderBy(x => Name) == colorsForDefaultQuickView.ToList().OrderBy(x => Name)) || (listQuickView.Count == colorsForDefaultQuickView.Length))
                 {
                     listQuickView.Clear();
                 }
 
-                //Generate a random color
+                // 색상 랜덤 선택
                 var randomColorQuickView = colorsForDefaultQuickView[random.Next(colorsForDefaultQuickView.Length)];
 
-                //If the list contains the random color and the listQV list contains more than one item, exclude the color from the next color to be chosen
+                // 이미 리스트에 있는 색상일 경우 다른 색상으로 변경
                 if (listQuickView.Contains(randomColorQuickView) && listQuickView.ToList().Count() > 1)
                 {
-                    //Change random color to be the next available color
                     var differentColorQuickView = colorsForDefaultQuickView[random.Next(colorsForDefaultQuickView.Length)];
-                    //Variable to find the items that are in colorsForDefault array, but are not in ListQV list
                     var colorsRemaining = colorsForDefaultQuickView.Except(listQuickView);
 
-                    //if differentColor is the same as randomColor, then select the next item in the list of colors which are still available to be chosen from.
                     if (randomColorQuickView == differentColorQuickView)
                     {
-                        //make differentColor the next availaible color in the list of colors which are not yet in the listQV list
                         differentColorQuickView = colorsRemaining.FirstOrDefault();
                     }
-                    //if randomColor is not equal to differentColor, and check if either color is contained in the list of colors(listQV)
+
                     if (randomColorQuickView != differentColorQuickView && (listQuickView.Contains(differentColorQuickView) || listQuickView.Contains(randomColorQuickView)))
                     {
-                        //if differentColor and randomColor are both in the listQV list, then get the next color of remaining colors which have not yet been used
                         if ((listQuickView.Contains(differentColorQuickView) && listQuickView.Contains(randomColorQuickView)))
                         {
-                            //assign the next color available to the differentColorVariable
                             differentColorQuickView = colorsRemaining.FirstOrDefault();
                         }
                         else
@@ -4941,43 +4938,47 @@ namespace MissionPlanner.GCSViews
                             differentColorQuickView = colorsRemaining.FirstOrDefault();
                         }
                     }
-                    //assign the differentColor to randomColor
+
                     randomColorQuickView = differentColorQuickView;
-                    //add the new randomColor into the list of colors(listQV)
                     listQuickView.Add(randomColorQuickView);
-                    //if the list does not yet contain the randomColor, then add the random color into the list(listQV)
+
                     if (!listQuickView.Contains(randomColorQuickView))
                     {
                         listQuickView.Add(randomColorQuickView);
                     }
                 }
-                //if the random color is not in the list of Colors, then add it to the list
                 else if (!listQuickView.Contains(randomColorQuickView))
                 {
-                    //add the color to a list
                     listQuickView.Add(randomColorQuickView);
                 }
-                //assigning the Name and NumberColor accordingly.
+
+                // QuickView 컨트롤 생성 및 속성 설정
                 var QV = new QuickView()
                 {
                     Name = NameQuickView,
                     numberColor = randomColorQuickView,
                 };
+
                 if (!MainV2.DisplayConfiguration.lockQuickView)
                     QV.DoubleClick += quickView_DoubleClick;
+
                 QV.ContextMenuStrip = contextMenuStripQuickView;
                 QV.Dock = DockStyle.Fill;
                 QV.numberColorBackup = QV.numberColor;
                 QV.number = 0;
 
+                // 컨트롤 추가
                 tableLayoutPanelQuick.Controls.Add(QV);
-                QV.Invalidate();
+                QV.Invalidate(); // 다시 그리기 요청
             }
-            //clear the listQV when the count of the list is divisible by 16
+
+            // 색상 리스트 정리
             if (listQuickView.ToList().Count % 16 == 0)
             {
                 listQuickView.Clear();
             }
+
+            // 열 비율 설정
             for (int i = 0; i < tableLayoutPanelQuick.ColumnCount; i++)
             {
                 if (tableLayoutPanelQuick.ColumnStyles.Count <= i)
@@ -4986,6 +4987,7 @@ namespace MissionPlanner.GCSViews
                 tableLayoutPanelQuick.ColumnStyles[i].Width = 100.0f / tableLayoutPanelQuick.ColumnCount;
             }
 
+            // 행 비율 설정
             for (int j = 0; j < tableLayoutPanelQuick.RowCount; j++)
             {
                 if (tableLayoutPanelQuick.RowStyles.Count <= j)
@@ -4994,10 +4996,13 @@ namespace MissionPlanner.GCSViews
                 tableLayoutPanelQuick.RowStyles[j].Height = 100.0f / tableLayoutPanelQuick.RowCount;
             }
 
-            tableLayoutPanelQuick.Controls.ForEach(a => ((Control) a).Invalidate());
+            // 모든 컨트롤 다시 그리기
+            tableLayoutPanelQuick.Controls.ForEach(a => ((Control)a).Invalidate());
 
+            // 레이아웃 재개
             tableLayoutPanelQuick.ResumeLayout(true);
         }
+
 
         bool setupPropertyInfo(ref PropertyInfo input, string name, object source)
         {
