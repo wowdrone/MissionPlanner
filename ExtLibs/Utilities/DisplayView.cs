@@ -1,12 +1,5 @@
-﻿using org.mariuszgromada.math.mxparser.mathcollection;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading;
 using System.Xml.Serialization;
 
 namespace MissionPlanner.Utilities
@@ -233,7 +226,7 @@ namespace MissionPlanner.Utilities
                 {
                     try
                     {
-                        result = (DisplayView) serializer.Deserialize(reader);
+                        result = (DisplayView)serializer.Deserialize(reader);
                         return true;
                     }
                     catch (Exception)
