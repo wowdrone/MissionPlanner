@@ -441,6 +441,7 @@ namespace MissionPlanner.Utilities
             if (File.Exists(custompath) && TryParse(File.ReadAllText(custompath), out result))
             {
                 result.displayName = DisplayNames.Custom;
+                Console.WriteLine("커스텀파일정상로드");
                 return result;
             }
 
