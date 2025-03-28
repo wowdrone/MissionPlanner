@@ -14,5 +14,7 @@
   <showtfr>False</showtfr>
   <showconsole>True</showconsole>
   <MainMaximised>Maximized</MainMaximised>
-  <CHK_GDIPlus>True</CHK_GDIPlus>  
+  <CHK_GDIPlus>True</CHK_GDIPlus>
+  <quickViewRows>2</quickViewRows>
+  <quickViewCols>2</quickViewCols>
 </Config>

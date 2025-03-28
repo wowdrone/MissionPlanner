@@ -5022,7 +5022,7 @@ namespace MissionPlanner.GCSViews
 
         private void setViewCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string cols = "2", rows = "3";
+            string cols = "2", rows = "2";
 
             if (Settings.Instance["quickViewRows"] != null)
             {
