@@ -29,11 +29,6 @@ namespace MissionPlanner.Utilities
                     try
                     {
                         _instance.Load();
-
-                        if (!config.ContainsKey("quickViewRows"))
-                            config["quickViewRows"] = "2";
-                        if (!config.ContainsKey("quickViewCols"))
-                            config["quickViewCols"] = "2";
                     } catch { }
                 }
                 return _instance;
