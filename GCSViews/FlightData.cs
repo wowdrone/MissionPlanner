@@ -234,11 +234,16 @@ namespace MissionPlanner.GCSViews
 
         public FlightData()
         {
+
             log.Info("Ctor Start");
 
             InitializeComponent();
 
             log.Info("Components Done");
+
+            //행렬 2*2로 수정
+            setQuickViewRowsCols("2", "2");
+
 
             instance = this;
 
@@ -260,6 +265,8 @@ namespace MissionPlanner.GCSViews
 
             // populate the unmodified base list
             tabControlactions.TabPages.ForEach(i => { TabListOriginal.Add((TabPage) i); });
+
+
 
             //  mymap.Manager.UseMemoryCache = false;
 
@@ -5031,7 +5038,7 @@ namespace MissionPlanner.GCSViews
             }
 
             if (InputBox.Show("Columns", "Enter number of columns to have.", ref cols) == DialogResult.OK)
-            {
+            { 
                 if (InputBox.Show("Rows", "Enter number of rows to have.", ref rows) == DialogResult.OK)
                 {
                     if (rows.IsNumber() && cols.IsNumber())

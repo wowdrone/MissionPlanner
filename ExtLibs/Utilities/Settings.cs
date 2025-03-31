@@ -37,6 +37,8 @@ namespace MissionPlanner.Utilities
 
         public Settings()
         {
+            
+
         }
 
         /// <summary>
