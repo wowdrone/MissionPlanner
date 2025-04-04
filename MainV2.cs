@@ -698,7 +698,7 @@ namespace MissionPlanner
             }
 
             InitializeComponent();
-
+            AddCustomButton();
             //Init Theme table and load BurntKermit as a default
             ThemeManager.thmColor = new ThemeColorTable(); //Init colortable
             ThemeManager.thmColor.InitColors(); //This fills up the table with BurntKermit defaults.
@@ -4799,6 +4799,31 @@ namespace MissionPlanner
         }
 
         //커스텀버튼시작
+        private void AddCustomButton()
+        {
+            // 1. 버튼 생성
+            Button myButton = new Button();
+
+            // 2. 위치 및 사이즈 설정
+            myButton.Text = "눌러줘!";
+            myButton.Location = new System.Drawing.Point(200, 10); // X, Y 위치
+            myButton.Size = new System.Drawing.Size(100, 30);      // Width, Height
+
+            // 3. 클릭 이벤트 핸들러 연결
+            myButton.Click += MyButton_Click;
+
+            // 4. 폼에 추가
+            this.Controls.Add(myButton);
+        }
+
+        private void MyButton_Click(object sender, EventArgs e)
+        {
+     
+            var screen = new MainSwitcher.Screen("MyView", typeof(HJSCUSTOM.MyCustomView), false);
+            MainV2.instance.MyView.AddScreen(screen);
+            MainV2.instance.MyView.ShowScreen("MyView");
+        }
+
 
     }
 }
